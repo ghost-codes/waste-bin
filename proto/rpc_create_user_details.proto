@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package pb;
+
+import "user.proto";
+
+option go_package = "ghost-codes/waste-bin/pb";
+
+
+message CreateUserDetailsRequest{
+    string uid = 1;
+    string full_name = 3;
+    string location = 4;
+}
+
+
+message CreateUserDetailsResponse{
+    UserDetails user = 1;
+}
+
+message FetchUserParams{}
+
