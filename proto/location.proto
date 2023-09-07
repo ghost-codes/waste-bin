@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package pb;
+
+
+option go_package = "ghost-codes/waste-bin/pb";
+
+message Location{
+    double lat = 1;
+    double long = 2;
+    string name = 3;
+}

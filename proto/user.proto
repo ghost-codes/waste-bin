@@ -3,6 +3,7 @@ syntax = "proto3";
 package pb;
 
 import "google/protobuf/timestamp.proto";
+import "location.proto";
 
 option go_package = "ghost-codes/waste-bin/pb";
 
@@ -10,6 +11,6 @@ option go_package = "ghost-codes/waste-bin/pb";
 message UserDetails{
     string uid = 1;
     string full_name = 3;
-    string location = 4;
+    Location location = 4;
     google.protobuf.Timestamp createdAt = 5;
 }

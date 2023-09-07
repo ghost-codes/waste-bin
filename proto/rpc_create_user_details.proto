@@ -19,4 +19,8 @@ message CreateUserDetailsResponse{
 }
 
 message FetchUserParams{}
+message FetchUserResponse{
+    UserDetails user = 1;
+    bool isSignUpd =2;
+}
 

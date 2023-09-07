@@ -34,7 +34,8 @@ func NewGorm(dbConnLink string) (*gorm.DB, error) {
 	migrations := Migrations{
 		DB: db,
 		Models: []interface{}{
-			&models.Todo{},
+			&models.UserDetails{},
+			// &models.Location{},
 		},
 	}
 

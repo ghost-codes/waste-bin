@@ -17,6 +17,8 @@ type Config struct {
 	DBUser               string        `mapstructure:"DB_USER"`
 	DBPassword           string        `mapstructure:"DB_PASSWORD"`
 	DBName               string        `mapstructure:"DB_NAME"`
+	GRPCServerAddress    string        `mapstructure:"GRPC_SEVER_ADDR"`
+	HttpServerAddress    string        `mapstructure:"HTTP_SEVER_ADDR"`
 }
 
 func (config *Config) DBSource() string {

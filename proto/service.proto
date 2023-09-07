@@ -3,11 +3,20 @@ syntax = "proto3";
 package pb;
 
 import "rpc_create_user_details.proto";
-import  "google/protobuf/Empty.proto";
+import "google/api/annotations.proto";
 
 option go_package = "ghost-codes/waste-bin/pb";
 
 service WasteBin{
-    rpc CreateUserDetails(CreateUserDetailsRequest) returns (CreateUserDetailsResponse) {}
-    rpc FetchUserDetails(google.protobuf.Empty) returns (CreateUserDetailsResponse) {}
+    rpc CreateUserDetails(CreateUserDetailsRequest) returns (CreateUserDetailsResponse) {
+        option (google.api.http) = {
+            post: "/v1/user/create"
+            body: "*"
+        };
+    }
+    rpc FetchUserDetails(FetchUserParams) returns (FetchUserResponse) {
+        option (google.api.http) = {
+            get: "/v1/user"
+        };
+    }
 }
