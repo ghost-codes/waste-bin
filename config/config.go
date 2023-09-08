@@ -19,6 +19,9 @@ type Config struct {
 	DBName               string        `mapstructure:"DB_NAME"`
 	GRPCServerAddress    string        `mapstructure:"GRPC_SEVER_ADDR"`
 	HttpServerAddress    string        `mapstructure:"HTTP_SEVER_ADDR"`
+	ProjectAPIKey        string        `mapstructure:"PROJECT_API_KEY"`
+	AppEnv               string        `mapstructure:"APP_ENV"`
+	DevUID               string        `mapstructure:"DEV_UID"`
 }
 
 func (config *Config) DBSource() string {

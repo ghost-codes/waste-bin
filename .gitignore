@@ -1,2 +1,6 @@
 .ignore
 config/.env
+.firebaserc
+firebase-debug.log
+*.log
+firebase.json
