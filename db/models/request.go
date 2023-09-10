@@ -8,6 +8,7 @@ import (
 )
 
 type RequestState string
+type RequestType string
 
 func (ct *RequestState) Scan(value interface{}) error {
 	*ct = RequestState(value.([]byte))
@@ -18,10 +19,23 @@ func (ct RequestState) Value() (driver.Value, error) {
 	return string(ct), nil
 }
 
+func (ct *RequestType) Scan(value interface{}) error {
+	*ct = RequestType(value.([]byte))
+	return nil
+}
+
+func (ct RequestType) Value() (driver.Value, error) {
+	return string(ct), nil
+}
+
 const (
-	PENDING RequestState = "pending"
-	SUCCESS RequestState = "success"
-	FAILED  RequestState = "failed"
+	PENDING       RequestState = "pending"
+	SUCCESS       RequestState = "success"
+	FAILED        RequestState = "failed"
+	EXTRABIN      RequestType  = "extra_bin"
+	REPLACEMENT   RequestType  = "replacement"
+	NEWBIN        RequestType  = "new_bin"
+	SPECIALPICKUP RequestType  = "special_pickup"
 )
 
 type Request struct {
@@ -37,4 +51,5 @@ type Request struct {
 	SpecialPickupID *uint
 	SpecialPickup   *SpecialPickup
 	State           RequestState `gorm:"type:request_state"`
+	Type            RequestType  `gorm:"type:request_type"`
 }
