@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	WasteBin_CreateUserDetails_FullMethodName = "/pb.WasteBin/CreateUserDetails"
 	WasteBin_FetchUserDetails_FullMethodName  = "/pb.WasteBin/FetchUserDetails"
+	WasteBin_MakeRequest_FullMethodName       = "/pb.WasteBin/MakeRequest"
 )
 
 // WasteBinClient is the client API for WasteBin service.
@@ -29,6 +30,7 @@ const (
 type WasteBinClient interface {
 	CreateUserDetails(ctx context.Context, in *CreateUserDetailsRequest, opts ...grpc.CallOption) (*CreateUserDetailsResponse, error)
 	FetchUserDetails(ctx context.Context, in *FetchUserParams, opts ...grpc.CallOption) (*FetchUserResponse, error)
+	MakeRequest(ctx context.Context, in *CreateRequestPayload, opts ...grpc.CallOption) (*CreateRequestResponse, error)
 }
 
 type wasteBinClient struct {
@@ -57,12 +59,22 @@ func (c *wasteBinClient) FetchUserDetails(ctx context.Context, in *FetchUserPara
 	return out, nil
 }
 
+func (c *wasteBinClient) MakeRequest(ctx context.Context, in *CreateRequestPayload, opts ...grpc.CallOption) (*CreateRequestResponse, error) {
+	out := new(CreateRequestResponse)
+	err := c.cc.Invoke(ctx, WasteBin_MakeRequest_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WasteBinServer is the server API for WasteBin service.
 // All implementations must embed UnimplementedWasteBinServer
 // for forward compatibility
 type WasteBinServer interface {
 	CreateUserDetails(context.Context, *CreateUserDetailsRequest) (*CreateUserDetailsResponse, error)
 	FetchUserDetails(context.Context, *FetchUserParams) (*FetchUserResponse, error)
+	MakeRequest(context.Context, *CreateRequestPayload) (*CreateRequestResponse, error)
 	mustEmbedUnimplementedWasteBinServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedWasteBinServer) CreateUserDetails(context.Context, *CreateUse
 }
 func (UnimplementedWasteBinServer) FetchUserDetails(context.Context, *FetchUserParams) (*FetchUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FetchUserDetails not implemented")
+}
+func (UnimplementedWasteBinServer) MakeRequest(context.Context, *CreateRequestPayload) (*CreateRequestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MakeRequest not implemented")
 }
 func (UnimplementedWasteBinServer) mustEmbedUnimplementedWasteBinServer() {}
 
@@ -125,6 +140,24 @@ func _WasteBin_FetchUserDetails_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WasteBin_MakeRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRequestPayload)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WasteBinServer).MakeRequest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WasteBin_MakeRequest_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WasteBinServer).MakeRequest(ctx, req.(*CreateRequestPayload))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WasteBin_ServiceDesc is the grpc.ServiceDesc for WasteBin service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var WasteBin_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FetchUserDetails",
 			Handler:    _WasteBin_FetchUserDetails_Handler,
+		},
+		{
+			MethodName: "MakeRequest",
+			Handler:    _WasteBin_MakeRequest_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

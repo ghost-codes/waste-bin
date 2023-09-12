@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/protobuf/timestamp.proto";
+import "user.proto";
+import "bin.proto";
+import "payment.proto";
+
+option go_package = "ghost-codes/waste-bin/pb";
+
+enum REQUEST_STATE{
+    pendingA = 0;
+    success = 1;
+    failed = 2;
+}
+
+enum RQUEST_TYPE{
+    extra_bin = 0;
+    replacement = 1;
+    new_bin = 2;
+    special_pickup = 3;
+}
+
+message Request{
+    int32 id = 1;
+    string user_id = 2;
+    optional  UserDetails user = 3;
+    REQUEST_STATE state = 4;
+    google.protobuf.Timestamp date_of_dropoff = 5;
+    optional Payment payment = 6;
+    optional Bin bin = 7;
+    RQUEST_TYPE type = 8;
+}
+
+message CreateRequestPayload{
+    RQUEST_TYPE type =1;
+    optional BinType bin_type = 2;
+    optional google.protobuf.Timestamp date = 3;
+}
+
+message CreateRequestResponse{
+    Request data = 1;
+    string paymentUrl = 2;
+}

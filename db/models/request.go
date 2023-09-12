@@ -29,13 +29,14 @@ func (ct RequestType) Value() (driver.Value, error) {
 }
 
 const (
-	PENDING       RequestState = "pending"
-	SUCCESS       RequestState = "success"
-	FAILED        RequestState = "failed"
-	EXTRABIN      RequestType  = "extra_bin"
-	REPLACEMENT   RequestType  = "replacement"
-	NEWBIN        RequestType  = "new_bin"
-	SPECIALPICKUP RequestType  = "special_pickup"
+	PENDING RequestState = "pending"
+	SUCCESS RequestState = "success"
+	FAILED  RequestState = "failed"
+
+	EXTRABIN      RequestType = "extra_bin"
+	REPLACEMENT   RequestType = "replacement"
+	NEWBIN        RequestType = "new_bin"
+	SPECIALPICKUP RequestType = "special_pickup"
 )
 
 type Request struct {
@@ -50,6 +51,14 @@ type Request struct {
 	Bin             *Bin
 	SpecialPickupID *uint
 	SpecialPickup   *SpecialPickup
-	State           RequestState `gorm:"type:request_state"`
+	State           RequestState `gorm:"type:request_state;default:pending"`
 	Type            RequestType  `gorm:"type:request_type"`
+}
+
+func (store *Store) CreateRequest(request *Request) error {
+	if err := store.Create(request).Error; err != nil {
+		return err
+	}
+
+	return nil
 }

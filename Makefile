@@ -20,6 +20,8 @@ test:
 server:
 	go run main.go
 
+
+
 proto:
 	rm -f pb/*.go
 	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
@@ -28,3 +30,23 @@ proto:
     proto/*.proto
 
 .PHONY: migrateup migratedown migrateup1 migratedown1 sqlc test server proto
+
+# CREATE TYPE request_type AS ENUM (
+# 'extra_bin',
+# 'replacement',
+# 'new_bin',
+# 'special_pickup');
+
+# CREATE TYPE request_state AS ENUM (
+# 'pending',
+# 'success',
+# 'failed');
+
+# CREATE TYPE bin_status AS ENUM (
+# 'pending',
+# 'delivered');
+
+# CREATE TYPE bin_type AS ENUM (
+# 'large',
+# 'medium',
+# 'small');

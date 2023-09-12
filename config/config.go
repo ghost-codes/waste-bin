@@ -22,6 +22,8 @@ type Config struct {
 	ProjectAPIKey        string        `mapstructure:"PROJECT_API_KEY"`
 	AppEnv               string        `mapstructure:"APP_ENV"`
 	DevUID               string        `mapstructure:"DEV_UID"`
+	PaystackSK           string        `mapstructure:"PAYSTACK_SECRET_KEY"`
+	PaystackPK           string        `mapstructure:"PAYSTACK_PUBLIC_KEY"`
 }
 
 func (config *Config) DBSource() string {

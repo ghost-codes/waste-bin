@@ -18,7 +18,7 @@ func RunMigrations(migrations Migrations) error {
 	for _, model := range migrations.Models {
 		err := migrations.DB.AutoMigrate(model)
 		if err != nil {
-			return fmt.Errorf("Error running migrations, %s", err)
+			return fmt.Errorf("Error running migrations, %s\nModel %v", err, model)
 		}
 	}
 	return nil
@@ -35,7 +35,9 @@ func NewGorm(dbConnLink string) (*gorm.DB, error) {
 		DB: db,
 		Models: []interface{}{
 			&models.UserDetails{},
-			// &models.Location{},
+			&models.Payment{},
+			&models.SpecialPickup{},
+			&models.Request{},
 		},
 	}
 

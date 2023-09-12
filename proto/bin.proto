@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "ghost-codes/waste-bin/pb";
+
+enum BinStatus {
+    pending = 0;
+    delivered = 1;
+}
+
+enum BinType{
+    large = 0;
+    medium = 1;
+    small = 2;
+}
+
+message Bin{
+    uint32 id = 1;
+    BinStatus status = 2;
+    BinType type = 3;
+}

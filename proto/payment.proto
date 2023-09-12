@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+
+package pb;
+
+import "user.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "ghost-codes/waste-bin/pb";
+
+message Payment{
+    int32 id = 1;
+    int32 amount = 2;
+    UserDetails user = 3;
+    google.protobuf.Timestamp date = 4;
+}

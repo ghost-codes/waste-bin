@@ -42,6 +42,6 @@ type Bin struct {
 	gorm.Model
 	ID     uint `gorm:"primaryKey"`
 	UserID string
-	Status BinStatus `gorm:"type:bin_status"`
-	Type   BinType   `gorm:"type:bin_status"`
+	Status BinStatus `gorm:"type:bin_status;default:pending"`
+	Type   BinType   `gorm:"type:bin_type"`
 }

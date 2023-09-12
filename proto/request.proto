@@ -6,6 +6,6 @@ package pb;
 
 option go_package = "ghost-codes/waste-bin/pb";
 
-message Request{
+// message Request{
     
-}
+// }
